@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Req, Res } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CreateUserDto } from '../dtos/createuser.dto';
 
-@Controller('users')
+@Controller('users') //users is the api route
 export class UsersController {
   @Get()
   getUsers() {
@@ -27,9 +27,8 @@ export class UsersController {
     ];
   }
 
-  @Post()
-  createUser(@Req() request: Request, @Res() response: Response) {
-    console.log(request.body);
-    return response.send('User created');
+  @Post('create')
+  createUser(@Body() userData: CreateUserDto) {
+    console.log(userData);
   }
 }
