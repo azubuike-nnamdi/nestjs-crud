@@ -1,15 +1,29 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateUserDto } from '../dtos/createuser.dto';
 
 @Controller('users') //users is the api route
 export class UsersController {
   @Get()
-  getUsers() {
-    return {
-      username: 'user',
-      email: 'user@example.com',
-    };
+  getUsers(@Query('sortBy') sortBy: string) {
+    console.log(sortBy);
   }
+  // @Get()
+  // getUsers() {
+  //   return {
+  //     username: 'user',
+  //     email: 'user@example.com',
+  //   };
+  // }
 
   @Get('posts')
   getUsersPosts() {
@@ -28,7 +42,14 @@ export class UsersController {
   }
 
   @Post('create')
+  @UsePipes(new ValidationPipe())
   createUser(@Body() userData: CreateUserDto) {
     console.log(userData);
+  }
+
+  @Get(':id')
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    console.log(id);
+    return { id };
   }
 }
