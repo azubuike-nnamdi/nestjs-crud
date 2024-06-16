@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseBoolPipe,
   ParseIntPipe,
   Post,
   Query,
@@ -14,7 +15,7 @@ import { CreateUserDto } from '../dtos/createuser.dto';
 @Controller('users') //users is the api route
 export class UsersController {
   @Get()
-  getUsers(@Query('sortBy') sortBy: string) {
+  getUsers(@Query('sortDesc', ParseBoolPipe) sortBy: boolean) {
     console.log(sortBy);
   }
   // @Get()
